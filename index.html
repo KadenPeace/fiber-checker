@@ -72,12 +72,27 @@
       border-radius: 8px;
       min-height: 800px;
     }
+        .hero {
+    width: 100%;
+    height: 250px;
+    background-image: url('https://raw.githubusercontent.com/KadenPeace/fiber-checker/000533ecd3452ec27927f64d3fd9649563151f65/SVBFiberNew.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    margin-top: -30px; /* pull up slightly if needed */
+    position: relative;
+    z-index: 2;
+  }
   </style>
 </head>
 <body>
-  <img class="logo" src="https://raw.githubusercontent.com/KadenPeace/fiber-checker/0c242631689cb5494058b541d70e24677f6cb101/SVBTransparent-Logo4.png" alt="SVB Logo">
-  
-  <div class="container">
+     <div class="hero"></div>
+    <div class="container">
     <h2>Check if Fiber is Available at Your Address</h2>
     <input id="addressInput" type="text" placeholder="Enter your full address" />
     <button onclick="checkServiceability()">Check Availability</button>
