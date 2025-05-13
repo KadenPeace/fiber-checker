@@ -4,7 +4,7 @@
   <title>Fiber Availability Checker</title>
   <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApaRc3lIJpTmjJYseDRaihThM9J9Eui0g&libraries=places"></script>
-    <style>
+  <style>
     body {
       background-color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
@@ -15,7 +15,7 @@
       align-items: center;
       color: #383885;
     }
-  
+
     .container {
       max-width: 600px;
       width: 90%;
@@ -26,17 +26,17 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-  
+
     .logo {
-      margin-top: 40px;
-      max-width: 400px;
+      margin-top: 30px;
+      max-width: 450px;
     }
-  
+
     h2 {
       color: #383885;
       margin-bottom: 20px;
     }
-  
+
     input[type="text"] {
       width: 100%;
       padding: 12px;
@@ -45,7 +45,13 @@
       border: 1px solid #ccc;
       margin-bottom: 10px;
     }
-  
+
+    input[type="text"] {
+      display: block;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
     button {
       background-color: #FF8B1F;
       color: white;
@@ -54,17 +60,18 @@
       font-size: 16px;
       border-radius: 6px;
       cursor: pointer;
+      margin-top: 10px;
     }
-  
+
     button:hover {
       background-color: #383885;
     }
-  
+
     #result {
       margin-top: 20px;
       font-weight: bold;
     }
-  
+
     iframe {
       margin-top: 30px;
       width: 100%;
@@ -74,11 +81,12 @@
     }
   </style>
 </head>
-<body>
+<body> 
   <div class="hero">
     <img class="logo" src="https://raw.githubusercontent.com/KadenPeace/fiber-checker/b352555787bf045a1bd6ceb318bb7b2c1a134223/SVBblack.png" alt="SVB Logo">
   </div>
-    <div class="container">
+
+  <div class="container">
     <h2>Check if Fiber is Available at Your Address</h2>
     <input id="addressInput" type="text" placeholder="Enter your full address" />
     <button onclick="checkServiceability()">Check Availability</button>
@@ -118,11 +126,16 @@
           resultEl.innerText = "Address not found. Please try again.";
           return;
         }
-        selectedLatLng = data.results[0].geometry.location;
+        selectedLatLng = {
+          lat: data.results[0].geometry.location.lat,
+          lng: data.results[0].geometry.location.lng
+        };
       }
 
       const pt = turf.point([selectedLatLng.lng, selectedLatLng.lat]);
       const inFiber = fiberZones.features.some(feature => turf.booleanPointInPolygon(pt, feature));
+
+      resultEl.innerText = "Checking...";
 
       resultEl.innerText = inFiber
         ? "✅ Yes! Fiber is available at your address."
